@@ -24,7 +24,6 @@ public class Main {
                              + "5. Exit");
                     int choice = Validation.InputInt("Enter your choice: ");
                     Student st = new Student(list);
-                    Student rp = new Student();
                     switch(choice){
                         case 1:{
                             int size = Validation.checkSize();
@@ -40,7 +39,7 @@ public class Main {
                             break;
                         }
                         case 4:{
-                            rp.report(list);
+                            st.report(list);
                             break;
                         }
                         case 5:{

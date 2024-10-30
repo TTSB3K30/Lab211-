@@ -19,21 +19,26 @@ public class Student {
     String ID, StudentName, Semester, CourseName;
     int Totalcourse;
 
+    //Contructor Overloading trong Java 
+    //Khởi tạo các thuộc tính của đối tượng với các giá trị khác nhau theo nhu cầu.
     public Student() {
     }
     
-    public Student(ArrayList<Student> list) {
+    public Student(ArrayList<Student> list) {//Nhận danh sách các đối tượng Student 
+        //và gán ds đó cho thuộc tính list của đối tượng student mới 
         this.list = list;
     }
     
-    public Student(String StudentName, String CourseName, int Totalcourse) {
+    //Hàm main tạo một danh sách mới truyền vào tham số ms thì gọi constructor trên để nhận danh sách sau đó thực hiện truyền các thuộc tính vào 
+    
+    public Student(String StudentName, String CourseName, int Totalcourse) {//Contructor truyền các tham số cần thiết cho report
         this.StudentName = StudentName;
         this.CourseName = CourseName;
         this.Totalcourse = Totalcourse;
     }
 
-    public Student(Student x) {
-        this.ID = x.ID;
+    public Student(Student x) {//Tạo một bản sao của một đối tượng student khác cho phần Update
+       this.ID = x.ID;
         this.StudentName = x.StudentName;
         this.Semester = x.Semester;
         this.CourseName = x.CourseName;
@@ -123,14 +128,14 @@ public class Student {
     void Create(int size){
         try {
             for (int i = 0; i < size; i++) {
-                if (count < 10) {
+                if (count < 10) {//Nếu số lượng hs trong list nhỏ hơn 10 thì vẫn thêm vào
                     add();
                 }
-                if (count >= 10) {
+                if (count >= 10) {//Khi lớn hơn hoặc bằng 10 thì hỏi xem là có muốn thêm tiếp hay không
                     System.out.println("Number of student greater than 10. Do you want to continue(Y/N): ");
                     if (!Validation.checkYN()) {
-                        return;
-                    } else {
+                        return;//nếu không muốn thì thoát ra
+                    } else { //không thì tiếp tục thêm
                         add();
                         return;
                     }
@@ -201,7 +206,7 @@ public class Student {
             int j = 0;//Lưu trự biến đếm số lượng sv tìm thấy vs ID trùng
             int a[] = new int[list.size()];//Tạo mảng với kích thước list.size lưu trữ chỉ số của các sv có ID trùng
             for (int i = 0; i < list.size(); i++) {//Duyệt qua ds list để tìm kiếm sv có ID trùng với s
-                if (list.get(i).getID().equalsIgnoreCase(s)) {
+                if (list.get(i).getID().equalsIgnoreCase(s)) {//Duyệt qua các ID trong list nếu bằng ID muốn tìm thì J tăng 1
                     a[j] = i;
                     System.out.println((j++) + " | " + list.get(i).getStudentName() + " | " +
                             list.get(i).getSemester() + " | " + 
@@ -215,10 +220,10 @@ public class Student {
                 return;
             }
 
-            int n = -1;
+            int n = -1;//Đảm bảo vòng lặp luôn chạy 1 lần
             do {            
-                n = Validation.InputInt("Enter no of data you want to U from 0 to " + (j - 1));
-            } while (n < 0 || n >= j);
+                n = Validation.InputInt("Enter no of data you want to U from 0 to " + (j - 1));//Lưu trữ stt sv muốn U/D
+            } while (n < 0 || n >= j);//Chỉ khi nhập    0<=n<j thì mới thoát vòng lặp
 
             do {//Lặp lại cho đến khi nhập thông tin hợp lệ  
                 Student st = new Student(list.get(a[n]));// Tạo đối tượng student mới sao chép từ sv đc chọn(có chỉ số a[n] trong d/s list 
@@ -227,21 +232,21 @@ public class Student {
                 String newCourseName = Validation.checkCourseName();
                 if (!Validation.checkStudentExit(list, st.getID(), st.getStudentName(), newSemes, newCourseName)) {
                     System.err.println("Duplicate!!! Please enter again!!!");
-                    continue;
+                    continue;//Đc sd để nhảy đến đầu vòng lặp
                 }
-                st.setSemester(newSemes);
-                st.setCourseName(newCourseName);
-                list.remove(a[n]);
-                list.add(st);
+                st.setSemester(newSemes);//Thay đổi kỳ học bằng method setter
+                st.setCourseName(newCourseName);//Thay đổi tên môn bằng setter
+                list.remove(a[n]);//xóa đi sv cũ (có chỉ số a[n]) khỏi danh sách
+                list.add(st);//Thêm sv mới (đã cập nhật vào danh sách
                 System.err.println("Update Done!!!");
-                return;
+                return;//Thoát khỏi vòng lặp
             } while (true);
         } catch (Exception e) {
             System.out.println("" + e.getMessage());
         }
     }
     
-    public void Delete(String s){
+    public void Delete(String s){//Tương tự phần tìm sv muốn U/D chỉ khác là xóa đi mà ko thay đổi data
         try {
             int j = 0;
             int a[] = new int[list.size()];
@@ -313,14 +318,14 @@ public class Student {
     
     //Kiểm tra report
     public static boolean checkReport(ArrayList<Student> lr, String name, String course, int total) {
-        for (Student report : lr) {
+        for (Student report : lr) {//Kiểm tra xem thông tin của sv hiện tại có trùng với thông tin được truyền vào hàm hay không
             if (name.equalsIgnoreCase(report.getStudentName())
                     && course.equalsIgnoreCase(report.getCourseName())
-                    && total == report.getTotalcourse()) {
+                    && total == report.getTotalcourse()) {//Nếu trùng thì trả về false
                 return false;
             }
         }
-        return true;
+        return true;//Không thì trả về true
     }
 
     void report(ArrayList<Student> list) {
@@ -332,22 +337,21 @@ public class Student {
         int total;
         for (Student item1 : list) {
             total = 0;
-            for (Student item2 : list) {
+            for (Student item2 : list) {//Duyệt qua sv trong list xem có trùng ID và course hay không
                 if (item1.getID().equalsIgnoreCase(item2.getID())
                         && item1.getCourseName().equalsIgnoreCase(item2.getCourseName())) {
-                    total++;
+                    total++;//Trùng thì tổng tăng 1
                 }
             }
-            if (checkReport(lr, item1.getStudentName(), item1.getCourseName(), total)) {
-                lr.add(new Student(item1.getStudentName(), item1.getCourseName(), total));
+            if (checkReport(lr, item1.getStudentName(), item1.getCourseName(), total)) {//Kiểm tra xem trong ds lr đã có bản ghi hay chưa
+                lr.add(new Student(item1.getStudentName(), item1.getCourseName(), total));//Nếu không trùng thì tạo bản ghi mới 
             }
         }
         //In ra report
         System.out.println("The report as below: ");
-        for (Student rp : lr) {
+        for (Student rp : lr) {//In ra các bản ghi trong list report
             System.out.printf("%-15s| %-10s| %-5s\n", rp.getStudentName(),
                     rp.getCourseName(), rp.getTotalcourse());
         }
     }
-    
 }
