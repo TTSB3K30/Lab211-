@@ -29,7 +29,7 @@ public class Student {
         this.list = list;
     }
     
-    //Hàm main tạo một danh sách mới truyền vào tham số ms thì gọi constructor trên để nhận danh sách sau đó thực hiện truyền các thuộc tính vào 
+    //Hàm main tạo một danh sách mới truyền vào tham số ms thì gọi constructor trên để nhận danh sách sau đó thực hiện truyền các thuộc tính vào
     
     public Student(String StudentName, String CourseName, int Totalcourse) {//Contructor truyền các tham số cần thiết cho report
         this.StudentName = StudentName;

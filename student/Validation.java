@@ -63,8 +63,11 @@ public class Validation {
                 if (result.equalsIgnoreCase("Y")) {
                     return true;
                 }
-                if (result.equalsIgnoreCase("N")) {
+                else if (result.equalsIgnoreCase("N")) {
                     return false;
+                }else{
+                    System.err.println("Please input y(Y) or n(N)!!!!");
+                    System.out.print("Enter Again: ");
                 }
             } catch (Exception e) {
                 System.out.println("" + e.getMessage());
